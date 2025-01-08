@@ -58,7 +58,7 @@
   <script>
     // Initialize Firebase
     const firebaseConfig = {
-      apiKey: "AIzaSyA2NKzk3eLn6WHy0r_WlsHwaGVo8en8o00",
+      apiKey: "YOUR_API_KEY",
       authDomain: "screencalculator.firebaseapp.com",
       projectId: "screencalculator",
     };
@@ -182,6 +182,7 @@
       const totalModulesPerCabinet = moduleData?.cabinetSpecs?.totalModules;
       const pixelSpec = moduleData.pixelSpecs[selectedPixelPitch];
       const cabinetWeight = pixelSpec.cabinetWeight; // Fetch cabinet weight
+      const cabinetPrice = pixelSpec.cabinetPrice; // Fetch cabinet price
 
       // Cabinet dimensions
       const cabinetLength = pixelSpec.cabinetLength;
@@ -191,10 +192,11 @@
       const cabinetsForLength = Math.round(lengthInMM / cabinetLength);
       const cabinetsForHeight = Math.round(heightInMM / cabinetHeight);
 
-      // Calculate Total Cabinets, Total Modules, and Total Weight
+      // Calculate Total Cabinets, Total Modules, Total Weight, and Screen Cost
       const totalCabinets = cabinetsForLength * cabinetsForHeight;
       const totalModules = totalCabinets * totalModulesPerCabinet;
       const totalWeight = (totalCabinets * cabinetWeight).toFixed(2); // Total weight in kilograms
+      const screenCost = (totalCabinets * cabinetPrice).toFixed(2); // Screen cost
 
       // Calculate Total Power
       const totalPower = totalCabinets * pixelSpec.cabinetMaxPower;
@@ -228,6 +230,7 @@
         <p>Rows of Cabinets: ${cabinetsForHeight}</p>
         <p>Total Modules: ${totalModules}</p>
         <p>Total Weight: ${totalWeight} kg</p>
+        <p>Screen Cost: $${screenCost}</p>
         <p>Total Power Consumption: ${totalPower} W</p>
         <p>Amperage @ 110V: ${amperage110} A</p>
         <p>Amperage @ 220V: ${amperage220} A</p>
