@@ -58,7 +58,7 @@
   <script>
     // Initialize Firebase
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
+      apiKey: "AIzaSyA2NKzk3eLn6WHy0r_WlsHwaGVo8en8o00",
       authDomain: "screencalculator.firebaseapp.com",
       projectId: "screencalculator",
     };
@@ -122,6 +122,7 @@
 
     const convertToInches = (mm) => (mm * 0.0393701).toFixed(2);
     const convertToFeet = (inches) => (inches / 12).toFixed(2);
+    const convertToPounds = (kg) => (kg * 2.20462).toFixed(2);
 
     // Event Listeners
     calculationMode.addEventListener('change', (event) => {
@@ -182,7 +183,6 @@
       const totalModulesPerCabinet = moduleData?.cabinetSpecs?.totalModules;
       const pixelSpec = moduleData.pixelSpecs[selectedPixelPitch];
       const cabinetWeight = pixelSpec.cabinetWeight; // Fetch cabinet weight
-      const cabinetPrice = pixelSpec.cabinetPrice; // Fetch cabinet price
 
       // Cabinet dimensions
       const cabinetLength = pixelSpec.cabinetLength;
@@ -192,11 +192,11 @@
       const cabinetsForLength = Math.round(lengthInMM / cabinetLength);
       const cabinetsForHeight = Math.round(heightInMM / cabinetHeight);
 
-      // Calculate Total Cabinets, Total Modules, Total Weight, and Screen Cost
+      // Calculate Total Cabinets, Total Modules, and Total Weight
       const totalCabinets = cabinetsForLength * cabinetsForHeight;
       const totalModules = totalCabinets * totalModulesPerCabinet;
-      const totalWeight = (totalCabinets * cabinetWeight).toFixed(2); // Total weight in kilograms
-      const screenCost = (totalCabinets * cabinetPrice).toFixed(2); // Screen cost
+      const totalWeightKg = (totalCabinets * cabinetWeight).toFixed(2); // Total weight in kilograms
+      const totalWeightLbs = convertToPounds(totalWeightKg); // Total weight in pounds
 
       // Calculate Total Power
       const totalPower = totalCabinets * pixelSpec.cabinetMaxPower;
@@ -229,7 +229,7 @@
         <p>Columns of Cabinets: ${cabinetsForLength}</p>
         <p>Rows of Cabinets: ${cabinetsForHeight}</p>
         <p>Total Modules: ${totalModules}</p>
-        <p>Total Weight: ${totalWeight} kg</p>
+        <p>Total Weight: ${totalWeightLbs} lbs</p>
         <p>Total Power Consumption: ${totalPower} W</p>
         <p>Amperage @ 110V: ${amperage110} A</p>
         <p>Amperage @ 220V: ${amperage220} A</p>
